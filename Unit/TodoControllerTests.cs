@@ -115,5 +115,30 @@ namespace TodoControllerTests
 
             Assert.IsType<NotFoundResult>(actual);
         }
+
+        [Fact]
+        public void GivenIdIsFoundWhenRemovingItemThenRepoRemovesItem()
+        {
+            long id = 5;
+            var item = new TodoItem { Id = 1, Name = "Something" };
+            repoMock.Setup(x => x.GetById(id)).Returns(item);
+            repoMock.Setup(x => x.Remove(item)).Verifiable();
+
+            var actual = sut.Delete(id);
+
+            repoMock.Verify();
+        }
+
+        [Fact]
+        public void GivenIdIsFoundWhenRemovingItemThenNoContentResultIsReturned()
+        {
+            long id = 5;
+            var item = new TodoItem { Id = 1, Name = "Something" };
+            repoMock.Setup(x => x.GetById(id)).Returns(item);
+
+            var actual = sut.Delete(id);
+
+            Assert.IsType<NoContentResult>(actual);
+        }
     }
 }
