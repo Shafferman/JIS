@@ -1,8 +1,10 @@
 ﻿using JISTesting.Core.Interfaces;
 using JISTesting.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,8 +43,15 @@ namespace JISTesting.Controllers
         [HttpPost]
         public IActionResult Create(TodoItem item)
         {
-            _repo.Add(item);
-
+            try
+            {
+                _repo.Add(item);
+            }
+            catch(ArgumentException)
+            {
+                return BadRequest();
+            }
+            
             return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
         }
 

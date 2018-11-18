@@ -40,6 +40,7 @@ namespace JISTesting.Infrastructure
         public void Update(TodoItem item)
         {
             _context.TodoItems.Update(item);
+            _context.SaveChanges();
         }
     }
 }
