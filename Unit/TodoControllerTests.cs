@@ -12,29 +12,29 @@ namespace TodoControllerTests
     public class ControllerTests
     {
         private readonly Mock<ITodoRepository> repoMock;
-        private readonly Mock<IUserManager> userManagerMock;
 
         private readonly TodoController sut;
 
         public ControllerTests()
         {
             repoMock = new Mock<ITodoRepository>();
-            userManagerMock = new Mock<IUserManager>();
 
-            sut = new TodoController(repoMock.Object, userManagerMock.Object);
+            sut = new TodoController(repoMock.Object);
         }
 
         [Fact]
         public void WhenGetAllIsCalledThenAllTodoItemsInRepoAreReturned()
         {
+            var item = new TodoItem { Id = 1, Name = "Something" };
+
             repoMock.Setup(x => x.GetAll()).Returns(new List<TodoItem>() 
             {
-                new TodoItem { Id = 1, Name = "Something"}
+                item
             });
 
             var actual = sut.GetAll();
 
-            Assert.Equal(1, actual.Value.Count);
+            Assert.Contains(item, actual.Value);       
         }
 
         [Fact]

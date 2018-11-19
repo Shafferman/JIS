@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JISTesting.Core.Interfaces;
 using JISTesting.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,12 +14,10 @@ namespace JISTesting.Controllers
     public class TodoController : ControllerBase
     {
         private readonly ITodoRepository _repo;
-        private readonly IUserManager _userManager;
 
-        public TodoController(ITodoRepository repo, IUserManager userManager)
+        public TodoController(ITodoRepository repo)
         {
             _repo = repo;
-            _userManager = userManager;
         }
 
         [HttpGet]
