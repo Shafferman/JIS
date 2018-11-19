@@ -1,8 +1,7 @@
-﻿using JISTesting.Core.Interfaces;
-using JISTesting.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using JISTesting.Core.Interfaces;
+using JISTesting.Models;
 
 namespace JISTesting.Infrastructure
 {

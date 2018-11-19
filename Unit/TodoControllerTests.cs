@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JISTesting.Controllers;
 using JISTesting.Core.Interfaces;
 using JISTesting.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -11,13 +12,16 @@ namespace TodoControllerTests
     public class ControllerTests
     {
         private readonly Mock<ITodoRepository> repoMock;
+        private readonly Mock<IUserManager> userManagerMock;
+
         private readonly TodoController sut;
 
         public ControllerTests()
         {
             repoMock = new Mock<ITodoRepository>();
+            userManagerMock = new Mock<IUserManager>();
 
-            sut = new TodoController(repoMock.Object);
+            sut = new TodoController(repoMock.Object, userManagerMock.Object);
         }
 
         [Fact]
